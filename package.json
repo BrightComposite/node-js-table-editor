@@ -1,0 +1,15 @@
+{
+  "name": "table-js-test",
+  "version": "1.0.0",
+  "description": "Simple table editor.",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BrightComposite/node-js-table-editor"
+  },
+  "dependencies": {
+    "express": "latest"
+  },
+  "author": "Ilya Pribylsky",
+  "license": "MIT"
+  }
