@@ -1,5 +1,78 @@
-div.table {
-	margin: 10 auto;
-	background: gray;
+body {
+	margin: 0;
+	padding: 0;
+	top: 0;
+}
+
+header {
+	display: table;
+	margin-top: 20px;
+	padding: 0;
+	width: 100%;
+	height: 100px;
+	color: #fff;
+	text-align: center;
+	background: #555;
+	border-top: 3px solid #AAA;
+	border-bottom: 3px solid #AAA;
+	z-index: 1;
+}
+
+h1 {
+	font-size: 48px;
+}
+
+.contents {
+	display: table;
+	margin: 20px auto;
+	padding: 20px 20px;
+	background: #AAA;
+	border-radius: 7px;
+}
+
+.sidebar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 480px;
+}
+
+.textarea {
+	margin-top: 146px;
+}
+
+.textarea textarea {
+	min-width: 320px;
+	min-height: 240px;
+	max-width: 640px;
+	border: 5px solid #777;
 	border-radius: 5px;
+}
+
+.table table {
+	width: 100%;
+	min-width: 540px;
+	border: 5px solid #EEE;
+	border-radius: 5px;
+}
+
+.table thead {
+	background: #DDD;
+	font-size: 24px;
+}
+
+.table tbody {
+	background: #EEE;
+	font-size: 20px;
+}
+
+.cell {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.selector {
+	width: 32px;
+	background: #FFF;
 }
