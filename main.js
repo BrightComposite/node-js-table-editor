@@ -23,10 +23,6 @@
 		});
 	}
 
-	Editor.prototype.refreshRows = function() {
-		this.rows = this.contents.children();
-	}
-
 	function setContents(contents, data) {
 		contents.empty();
 
@@ -35,14 +31,16 @@
 		}
 	}
 
-	function getContents(contents, data) {
+	function getContents(contents) {
 		var data = [];
 		var rows = contents.children();
 
 		rows.each(function(index) {
 			var cells = $(this).children();
-			data.push({name: cells.eq(1).text(), value: cells.eq(2).text()});
+			data.push({name: cells.eq(1).find("input").val(), value: cells.eq(2).find("input").val()});
 		});
+
+		return data;
 	}
 
 	function cancelEdit() {
@@ -136,8 +134,6 @@
 			setTextareaVisibility(!editor.textareaVisible);
 		});
 
-		this.refreshRows();
-
 		var newRowAbove = this.toolbar.find(".new-row-above");
 		var newRowBelow = this.toolbar.find(".new-row-below");
 		var dublicateRow = this.toolbar.find(".dublicate-row");
@@ -155,7 +151,6 @@
 				var selector = $(editor.currentSelector);
 
 				selector.parent().before(rowHtml({name: "", value: ""}));
-				editor.refreshRows();
 				editor.toolbar.animate({top: selector.offset().top + (selector.outerHeight() - editor.toolbar.outerHeight()) / 2});
 
 				e.stopPropagation();
@@ -165,10 +160,7 @@
 		newRowBelow.on("click", function(e) {
 			if(editor.currentSelector != null) {
 				var selector = $(editor.currentSelector);
-
 				selector.parent().after(rowHtml({name: "", value: ""}));
-				editor.refreshRows();
-
 				e.stopPropagation();
 			}
 		});
@@ -176,10 +168,7 @@
 		dublicateRow.on("click", function(e) {
 			if(editor.currentSelector != null) {
 				var selector = $(editor.currentSelector);
-
 				selector.parent().after(selector.parent().clone());
-				editor.refreshRows();
-
 				e.stopPropagation();
 			}
 		});
@@ -189,7 +178,7 @@
 				var selector = $(editor.currentSelector);
 				var row = selector.parent();
 
-				if(editor.rows.length == 1) {
+				if(row.parent().children().length == 1) {
 					row.before(rowHtml({name: "", value: ""}));
 				}
 
@@ -199,7 +188,6 @@
 					next = row.prev();
 
 				row.remove();
-				editor.refreshRows();
 				selectRow(next.children()[0]);
 
 				e.stopPropagation();
@@ -221,7 +209,7 @@
 
 		$("#tools .import").on("click", function() {
 			status.text("");
-			getContents(editor.contents, editor.data);
+			editor.data = getContents(editor.contents);
 			editor.textarea.val(JSON.stringify(editor.data));
 		});
 
