@@ -82,25 +82,20 @@ h1 {
 	font-size: 24px;
 }
 
-.table tbody {
-	font-size: 20px;
-}
-
-.table td {
-	background: #BBB;
-}
-
 .table td, .table th {
 	border: 1px solid #AAA;
 }
 
 .cell {
+	border: none;
+	border-radius: 5px;
 	margin: 0 auto;
 	min-width: 240px;
 	min-height: 24px;
 	line-height: 24px;
 	text-align: center;
-	cursor: pointer;
+	font-size: 20px;
+	background: #DDD;
 }
 
 .table .selector {

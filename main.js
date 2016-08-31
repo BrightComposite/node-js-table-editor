@@ -9,7 +9,7 @@
 	var editor = null;
 
 	function cellHtml(value) {
-		return '<td><div class="cell" title="Изменить">' + value + '</div></td>';
+		return '<td><input class="cell" type="text" title="Изменить" value="' + value + '"/></td>';
 	}
 
 	function rowHtml(record) {
@@ -49,12 +49,6 @@
 		if(editor.currentSelector != null) {
 			editor.currentSelector = null;
 			editor.toolbar.hide("fade");
-		}
-
-		if(editor.input != null) {
-			editor.input.element.remove();
-			editor.input.parent.append(editor.input.cell);
-			editor.input = null;
 		}
 	}
 
@@ -146,6 +140,7 @@
 
 		var newRowAbove = this.toolbar.find(".new-row-above");
 		var newRowBelow = this.toolbar.find(".new-row-below");
+		var dublicateRow = this.toolbar.find(".dublicate-row");
 		var deleteRow = this.toolbar.find(".delete-row");
 
 		this.toolbar.disableSelection();
@@ -153,39 +148,6 @@
 		this.contents.on("click", ".selector", function(e) {
 			if(selectRow(this))
 				e.stopPropagation();;
-		});
-
-		this.contents.on("click", ".cell", function(e) {
-			cancelEdit();
-
-			var cell = $(this);
-
-			editor.input = {
-				element: $('<input class="cell-edit" type="text"/>'),
-				parent: cell.parent(),
-				cell: cell
-			};
-
-			editor.input.element.width(editor.input.cell.width() - 8);
-			editor.input.element.height(editor.input.cell.height() - 8);
-
-			editor.input.cell.detach();
-			editor.input.parent.append(editor.input.element);
-
-			editor.input.element.on("click", function(e) {
-				e.stopPropagation();
-			});
-
-			editor.input.element.on("change", function() {
-				editor.input.cell.text(editor.input.element.val());
-				editor.input.element.remove();
-				editor.input.parent.append(editor.input.cell);
-				editor.input = null;
-			});
-
-			editor.input.element.focus();
-
-			e.stopPropagation();
 		});
 
 		newRowAbove.on("click", function(e) {
@@ -205,6 +167,17 @@
 				var selector = $(editor.currentSelector);
 
 				selector.parent().after(rowHtml({name: "", value: ""}));
+				editor.refreshRows();
+
+				e.stopPropagation();
+			}
+		});
+
+		dublicateRow.on("click", function(e) {
+			if(editor.currentSelector != null) {
+				var selector = $(editor.currentSelector);
+
+				selector.parent().after(selector.parent().clone());
 				editor.refreshRows();
 
 				e.stopPropagation();
@@ -272,6 +245,10 @@
 		w.resize(function() {
 			if(editor.currentSelector != null) {
 				editor.updateToolbar($(editor.currentSelector));
+			} else {
+				editor.toolbar.css({
+					left: (editor.contents.offset().left - editor.toolbar.outerWidth(true)) + 'px'
+				});
 			}
 		});
 	}

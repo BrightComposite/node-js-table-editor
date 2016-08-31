@@ -20,14 +20,15 @@
 						<th></th><th>Name</th><th>Value</th>
 					</thead>
 					<tbody>
-						<tr><td class="selector"><div></div></td><td><div class="cell">name1</div></td><td><div class="cell">value1</div></td></tr>
+						<tr><td class="selector"><div></div></td><td><input class="cell" type="text" value="name1"/></td><td><input class="cell" type="text" value="value1"/></td></tr>
 					</tbody>
 				</table>
 			</div>
 			<div id="toolbar">
-				<span class="new-row-above" title="Добавить строку сверху (Above)"> A </span>
-				<span class="new-row-below" title="Добавить строку снизу (Below)">  B </span>
-				<span class="delete-row"    title="Удалить текущую строку (Delete)"> D </span>
+				<span class="new-row-above" title="Добавить строку сверху">     A </span>
+				<span class="new-row-below" title="Добавить строку снизу">      B </span>
+				<span class="dublicate-row" title="Дублировать текущую строку"> D </span>
+				<span class="delete-row"    title="Удалить текущую строку">     X </span>
 			</div>
 		</div>
 		<div class="sidebar">
@@ -47,6 +48,10 @@
 			<div class="description">
 				<p>Кнопка в левом верхнем углу - для открытия меню импорта-экспорта</p>
 				<p>Контекстное меню для изменения строк таблицы открывается при нажатии на кнопку в первой ячейки нужной строки</p>
+				<p>A - добавить строку сверху</p>
+				<p>B - добавить строку снизу</p>
+				<p>D - дублировать текущую строку</p>
+				<p>X - удалить строку</p>
 				<p>Строки можно перемещать при помощи мыши</p>
 				<br />
 				<p>Репозиторий с исходным кодом: <a href="https://github.com/BrightComposite/node-js-table-editor">GitHub</a></p>
