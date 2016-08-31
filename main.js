@@ -1,6 +1,10 @@
 
 (($) => {
-	const demoData = '[\n    {"name":"name1","value":"value1"},\n    {"name":"name2","value":"value2"}\n]';
+	const demoData = [
+		{"name":"name1","value":"value1"},
+		{"name":"name2","value":"value2"}
+	];
+
 	const selectorHtml = '<td class="selector" title="Редактировать строки"><div></div></td>';
 
 	const d = $(document);
@@ -17,9 +21,9 @@
 	}
 
 	Editor.prototype.updateToolbar = function(selector) {
-		editor.toolbar.css({
-			left: (editor.contents.offset().left - editor.toolbar.outerWidth(true)) + 'px',
-			top: (selector.offset().top + (selector.outerHeight() - editor.toolbar.outerHeight()) / 2) + 'px'
+		editor.toolbar.offset({
+			left: (selector.offset().left - editor.toolbar.outerWidth(false) - 10),
+			top: (selector.offset().top + (selector.outerHeight() - editor.toolbar.outerHeight()) / 2)
 		});
 	}
 
@@ -46,36 +50,32 @@
 	function cancelEdit() {
 		if(editor.currentSelector != null) {
 			editor.currentSelector = null;
-			editor.toolbar.hide("fade");
+			editor.toolbar.css("opacity", "0.0");
 		}
 	}
 
 	function setTextareaVisibility(visible) {
 		editor.textareaVisible = visible;
-		var delay = 800 * (editor.sidebarButton.width() / editor.sidebar.width());
+		var delay = 80;
 
 		if(editor.textareaVisible) {
 			editor.sidebar.animate({left: 0}, 500);
-			editor.sidebarButton.delay(delay).animate({left: editor.sidebar.width() - 84}, 500 * (editor.sidebar.width() - 84) / editor.sidebar.width());
+			editor.sidebarButton.delay(delay).animate({left: editor.sidebar.width() - 100}, 500 * (editor.sidebar.width() - 100) / editor.sidebar.width());
 		} else {
-			editor.sidebar.animate({left: -editor.sidebar.width()}, 500 * editor.sidebar.width() / (editor.sidebar.width() - 84));
+			editor.sidebar.animate({left: -editor.sidebar.width()}, 500 * editor.sidebar.width() / (editor.sidebar.width() - 100));
 			editor.sidebarButton.animate({left: 20}, 500);
 		}
 	}
 
 	function selectRow(selector) {
 		var element = $(selector);
-		var top = element.offset().top + (element.outerHeight() - editor.toolbar.outerHeight()) / 2;
 
 		if(editor.currentSelector != selector) {
 			if(editor.currentSelector == null) {
-				cancelEdit();
-				editor.toolbar.css({top: top + 'px'});
-				editor.toolbar.show("fade");
+				editor.updateToolbar(element);
+				editor.toolbar.css("opacity", "1.0");
 			} else {
-				editor.currentSelector = null;
-				cancelEdit();
-				editor.toolbar.animate({top: top});
+				editor.updateToolbar(element);
 			}
 
 			editor.currentSelector = selector;
@@ -94,17 +94,15 @@
 		this.textareaContainer = this.sidebar.find(".textarea");
 		this.textarea = this.textareaContainer.find("textarea");
 		this.description = this.sidebar.find(".description");
-		this.data = JSON.parse(demoData);
-		this.textarea.val(demoData);
+		this.data = demoData;
+		this.textarea.val(JSON.stringify(demoData));
 		this.textareaVisible = true;
 		this.toolbar = $("#toolbar");
-		this.toolbar.hide();
 		this.currentSelector = null;
 
 		this.sidebar.offset({left: -editor.sidebar.width(), top: 0});
-
-		var selector = $(".selector").first();
-		editor.updateToolbar(selector);
+		this.toolbar.css("transition", "opacity 0.2s linear");
+		this.updateToolbar($(".selector").first());
 
 		setContents(this.contents, this.data);
 		setTextareaVisibility(this.textareaVisible);
@@ -121,8 +119,7 @@
 			stop: function(e, ui) {
 				if(editor.currentSelector != null) {
 					var element = $(editor.currentSelector);
-					var top = element.offset().top + (element.outerHeight() - editor.toolbar.outerHeight()) / 2;
-					editor.toolbar.css({top: top + 'px'});
+					editor.updateToolbar(element);
 				}
 			}
 		}).disableSelection();
@@ -146,10 +143,8 @@
 		newRowAbove.on("click", function(e) {
 			if(editor.currentSelector != null) {
 				var selector = $(editor.currentSelector);
-
 				selector.parent().before(rowHtml({name: "", value: ""}));
-				editor.toolbar.animate({top: selector.offset().top + (selector.outerHeight() - editor.toolbar.outerHeight()) / 2});
-
+				editor.updateToolbar(selector);
 				e.stopPropagation();
 			}
 		});
@@ -158,6 +153,7 @@
 			if(editor.currentSelector != null) {
 				var selector = $(editor.currentSelector);
 				selector.parent().after(rowHtml({name: "", value: ""}));
+				editor.updateToolbar(selector);
 				e.stopPropagation();
 			}
 		});
@@ -166,6 +162,7 @@
 			if(editor.currentSelector != null) {
 				var selector = $(editor.currentSelector);
 				selector.parent().after(selector.parent().clone());
+				editor.updateToolbar(selector);
 				e.stopPropagation();
 			}
 		});
