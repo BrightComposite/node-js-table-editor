@@ -7,6 +7,10 @@
     "type": "git",
     "url": "https://github.com/BrightComposite/node-js-table-editor"
   },
+  "engines": {
+    "node": "4.5.x",
+    "npm": "2.15.x"
+  },
   "dependencies": {
     "express": "latest"
   },
