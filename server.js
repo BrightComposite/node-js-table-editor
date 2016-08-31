@@ -7,6 +7,10 @@ app.get('/', function(req, res) {
   res.sendFile('/index.html')
 })
 
+app.get('/help.html', function(req, res) {
+  res.sendFile('/help.html')
+})
+
 var port = process.env.PORT || 5000;
 app.listen(port)
 

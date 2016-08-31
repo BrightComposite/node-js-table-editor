@@ -48,13 +48,24 @@ h1 {
 
 .description {
 	margin: 10%;
-	padding: 10px;
+	padding: 20px 10px;
 	color: #FFF;
 	font-size: 20px;
 	background: #888;
 	border: 3px solid #444;
 	border-radius: 5px;
 	text-align: center;
+}
+
+.description p {
+	margin: 10px 0;
+}
+
+.description hr {
+	width: 400px;
+	height: 2px;
+	background: #444;
+	border: none;
 }
 
 .textarea textarea {
@@ -157,14 +168,14 @@ h1 {
 }
 
 #help {
-	display: none;
 	position: absolute;
-	left: 20%;
-	top: 10%;
-	width: 60%;
-	border: 3px solid #444;
+	width: 100%;
 	background: #FFF;
 	z-index: 100;
+}
+
+#help a {
+	color: #DDD;
 }
 
 #sidebar-button {
@@ -200,12 +211,14 @@ h1 {
 	cursor: pointer;
 }
 
-#help-button > div {
+#help-button > a {
+	display: block;
 	margin: 0;
 	width: 48px;
 	height: 48px;
 	border: 2px solid #888;
 	color: #000;
+	text-decoration: none;
 	font-size: 48px;
 	line-height: 48px;
 	text-align: center;

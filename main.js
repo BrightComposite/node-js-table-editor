@@ -98,9 +98,6 @@
 		this.textarea.val(demoData);
 		this.textareaVisible = true;
 		this.toolbar = $("#toolbar");
-		this.help = $("#help");
-		this.helpButton = $("#help-button");
-		this.helpShown = false;
 		this.toolbar.hide();
 		this.currentSelector = null;
 
@@ -213,21 +210,8 @@
 			editor.textarea.val(JSON.stringify(editor.data));
 		});
 
-		this.helpButton.on("click", function(e) {
-			if(!editor.helpShown) {
-				editor.help.show("drop");
-				editor.helpShown = true;
-				e.stopPropagation();
-			}
-		});
-
 		d.on("click", function() {
 			cancelEdit();
-
-			if(editor.helpShown) {
-				editor.help.hide("drop");
-				editor.helpShown = false;
-			}
 		});
 
 		w.resize(function() {
