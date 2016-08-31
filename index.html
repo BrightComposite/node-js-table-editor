@@ -3,6 +3,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css">
 		<script type="text/javascript" src="jquery/jquery-1.11.3.min.js"></script>
 		<script type="text/javascript" src="jquery/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="main.js"></script>
@@ -19,21 +20,40 @@
 						<th></th><th>Name</th><th>Value</th>
 					</thead>
 					<tbody>
-						<tr><td class="selector"></td><td><div class="cell">name1</div></td><td><div class="cell">value1</div></td></tr>
+						<tr><td class="selector"><div></div></td><td><div class="cell">name1</div></td><td><div class="cell">value1</div></td></tr>
 					</tbody>
 				</table>
 			</div>
+			<div id="toolbar">
+				<span class="new-row-above" title="Добавить строку сверху (Above)"> A </span>
+				<span class="new-row-below" title="Добавить строку снизу (Below)">  B </span>
+				<span class="delete-row"    title="Удалить текущую строку (Delete)"> D </span>
+			</div>
 		</div>
 		<div class="sidebar">
-			<div class="sidebar-button">
-
-			</div>
 			<div class="textarea">
 				<textarea> </textarea>
-				<div class="description">
-					<!--<p>Контекстное меню для изменения строк таблицы открывается при нажатии на кнопку в первой ячейки нужной строки</p>-->
+				<div id="tools">
+					<div class="export">Загрузить</div>
+					<div class="import">Выгрузить</div>
 				</div>
+				<div id="export-status"></div>
 			</div>
+		</div>
+		<div id="sidebar-button" title="Показать/скрыть меню импорта/экспорта данных">
+			<div></div>
+		</div>
+		<div id="help">
+			<div class="description">
+				<p>Кнопка в левом верхнем углу - для открытия меню импорта-экспорта</p>
+				<p>Контекстное меню для изменения строк таблицы открывается при нажатии на кнопку в первой ячейки нужной строки</p>
+				<p>Строки можно перемещать при помощи мыши</p>
+				<br />
+				<p>Репозиторий с исходным кодом: <a href="https://github.com/BrightComposite/node-js-table-editor">GitHub</a></p>
+			</div>
+		</div>
+		<div id="help-button" title="Справка">
+			<div>?</div>
 		</div>
 	</body>
 </html>
