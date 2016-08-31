@@ -6,7 +6,6 @@
 	const w = $(window);
 
 	var editor = null;
-	var dynamicTextarea = true;
 
 	function cellHtml(value) {
 		return '<td><div class="cell">' + value + '</div></td>';
@@ -16,26 +15,7 @@
 		return '<tr>' + selectorHtml + cellHtml(record.name) + cellHtml(record.value) + '</tr>';
 	}
 
-	function updateSidebar() {
-		if(w.width() < 1280) {
-			dynamicTextarea = false;
-		} else {
-			dynamicTextarea = true;
-		}
-	}
-
-	function resizeWindow() {
-		var contents = $(".contents");
-
-		if(w.width() < 1280) {
-			dynamicTextarea = false;
-		} else {
-			dynamicTextarea = true;
-		}
-	}
-
 	Editor.prototype.refreshRows = () => {
-		editor = this;
 		this.rows = this.contents.children();
 	}
 
@@ -47,28 +27,46 @@
 		}
 	}
 
+	function changeSelector() {
+
+	}
+
 	function Editor() {
+		editor = this;
 		this.contents = $(".table tbody");
+		this.textareaContainer = $(".textarea");
 		this.textarea = $(".textarea textarea");
+		this.description = $(".description");
 		this.sidebar = $(".sidebar");
+		this.sidebarButton = $(".sidebar-button");
 		this.data = JSON.parse(demoData);
 		this.textarea.text(demoData);
+		this.textareaHidden = false;
 
 		setContents(this.contents, this.data);
-		resizeWindow();
 
-		this.contents.on("click", ".selector", () => {
+		this.contents.sortable({
+			items: "> tr",
+			appendTo: "parent",
+			axis: "y",
+			handle: "> .selector",
+  			containment: "parent",
+			tolerance: "pointer",
+			placeholder: "sortable-placeholder"
+		}).disableSelection();
 
-		});
+		this.sidebarButton.click(() => {
+			editor.textareaHidden = !editor.textareaHidden;
 
-		this.textarea.resize(() => {
-
+			if(editor.textareaHidden) {
+				editor.sidebar.offset({left: editor.sidebarButton.outerWidth(true) - editor.sidebar.width(), top: 0});
+			} else {
+				editor.sidebar.offset({left: 0, top: 0});
+			}
 		});
 	}
 
 	d.ready(() => {
 		new Editor();
 	});
-
-	w.resize(resizeWindow);
 })(jQuery);

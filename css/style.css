@@ -12,9 +12,9 @@ header {
 	height: 100px;
 	color: #fff;
 	text-align: center;
-	background: #555;
-	border-top: 3px solid #AAA;
-	border-bottom: 3px solid #AAA;
+	background: #777;
+	border-top: 3px solid #444;
+	border-bottom: 3px solid #444;
 	z-index: 1;
 }
 
@@ -25,9 +25,6 @@ h1 {
 .contents {
 	display: table;
 	margin: 20px auto;
-	padding: 20px 20px;
-	background: #AAA;
-	border-radius: 7px;
 }
 
 .sidebar {
@@ -35,44 +32,85 @@ h1 {
 	top: 0;
 	left: 0;
 	height: 100%;
-	width: 480px;
+	background: #AAA;
+	border-right: 3px solid #444;
+	transition: left linear .2s;
 }
 
 .textarea {
-	margin-top: 146px;
+	margin: 40px;
+	float: left;
+}
+
+.description {
+	display: inline-table;
 }
 
 .textarea textarea {
+	margin-bottom: 40px;
 	min-width: 320px;
 	min-height: 240px;
 	max-width: 640px;
-	border: 5px solid #777;
+	border: 3px solid #444;
 	border-radius: 5px;
 }
 
 .table table {
 	width: 100%;
-	min-width: 540px;
-	border: 5px solid #EEE;
+	background: #AAA;
+	border: 3px solid #444;
 	border-radius: 5px;
+	border-spacing: 0px;
 }
 
 .table thead {
-	background: #DDD;
+	color: #fff;
+	background: #777;
 	font-size: 24px;
 }
 
 .table tbody {
-	background: #EEE;
 	font-size: 20px;
+}
+
+.table td {
+	background: #BBB;
+}
+
+.table td, .table th {
+	border: 1px solid #AAA;
 }
 
 .cell {
 	margin: 0 auto;
+	min-width: 240px;
 	text-align: center;
+	cursor: pointer;
 }
 
-.selector {
-	width: 32px;
+.table .selector {
+	width: 24px;
 	background: #FFF;
+	cursor: pointer;
+}
+
+.sidebar-button {
+	margin: 40px;
+	float: right;
+	width: 64px;
+	height: 64px;
+	border: 3px solid #444;
+	border-radius: 5px;
+	background: #FFF;
+	cursor: pointer;
+}
+
+.ui-sortable-helper td {
+	background: #DDD;
+	cursor: pointer;
+}
+
+.sortable-placeholder td {
+	border: 1px solid #EEE;
+	background: #EEE;
 }
